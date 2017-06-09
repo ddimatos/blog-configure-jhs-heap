@@ -78,6 +78,14 @@ echo "Based on the task count $TASK_COUNT * $TASK_SIZE_KB task size * $PERCENT v
             
 # Sum the task size and compensation factor together, this is your new heap size
 HEAP=`echo $TASK_SIZE_SUM+$COMPENSATION_FACTOR|bc`; 
-echo "Based on the task size summary $TASK_SIZE_SUM bytes and the compenstaion $COMPENSATION_FACTOR bytes, the JHS HEAP should be set to: $HEAP bytes"
+echo "Based on the task size summary $TASK_SIZE_SUM bytes and the compensation $COMPENSATION_FACTOR bytes, the JHS HEAP should be set to: $HEAP bytes"
 echo "Set variable HADOOP_JOB_HISTORYSERVER_HEAPSIZE in mapred-site.xml to $HEAP bytes navigating Ambari > MapReduce2 > Configs > Advanced > History Server > History Server heap size" 
 
+##########################################################################################
+# STDOUT example of the commmands:
+##########################################################################################
+# Based on 44 tasks and the divisor 3, you should set the JHS task cache size (mapreduce.jobhistory.loadedtasks.cache.size) to: 14
+# Based on the task count 44 * 15 task size * .20 varience, the compensation factor is: 42 bytes
+# Based on the task size summary 210 bytes and the compenstaion 42 bytes, the JHS HEAP should be set to: 252 bytes
+# Set variable HADOOP_JOB_HISTORYSERVER_HEAPSIZE in mapred-site.xml to 252 bytes navigating Ambari > MapReduce2 > Configs > Advanced > History Server > History Server heap size
+##########################################################################################
