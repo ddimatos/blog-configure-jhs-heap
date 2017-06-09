@@ -13,7 +13,7 @@
 
 #Count all the .jhst and .xml files for a day to get an idea of the number of jobs you run
 DATE="2017/06/06";
-]PERCENT=".20";
+PERCENT=".20";
 DIVISOR=24;
 JOB_COUNT=`sudo -u hdfs hdfs dfs -ls -R /mr-history/done/$DATE |grep jhist | gawk '{n++;} END {print n;}'`; 
 echo "$JOB_COUNT Jobs were run on date $DATE";
