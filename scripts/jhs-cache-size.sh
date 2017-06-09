@@ -62,8 +62,7 @@ echo "Set variable HADOOP_JOB_HISTORYSERVER_HEAPSIZE in mapred-site.xml to $HEAP
 # Hadoop 2.7.3 supports property mapreduce.jobhistory.loadedtasks.cache.size
 ##########################################################################################
 #Count all the tasks used on $DATE
-TASK_COUNT=`for F in `sudo -u hdfs hdfs dfs  -ls -R /mr-history/done/$DATE |grep jhist |awk '{print $8}'`;do sudo -u hdfs hdfs dfs -cat $F |grep -i \"totalMaps\": | python -c 'import sys, json; print json.load(sys.stdin)["event"]["org.apache.hadoop.mapreduce.jobhistory.JobInited"]["totalMaps"]';done|{ tr '\n' +; echo 0;}|bc`;
-echo "$TASK_COUNT tasks were created on date $DATE";
+TASK_COUNT=`for F in \`sudo -u hdfs hdfs dfs  -ls -R /mr-history/done/$DATE |grep jhist |awk '{print $8}'\`;do sudo -u hdfs hdfs dfs -cat $F |grep -i \"totalMaps\": | python -c 'import sys, json; print json.load(sys.stdin)["event"]["org.apache.hadoop.mapreduce.jobhistory.JobInited"]["totalMaps"]';done|{ tr '\n' +; echo 0;}|bc`;
 
 #Divide the number of jobs you run by a divisor (a number that equates to something meaningful, ie , 24 is mine for 24 hours, so i am going to cache only the last hour of jobs) 
 TASK_CACHE_SIZE=`echo $TASK_COUNT/$DIVISOR|bc`;
