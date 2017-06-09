@@ -69,10 +69,10 @@ TASK_CACHE_SIZE=`echo $TASK_COUNT/$DIVISOR|bc`;
 echo "Based on $TASK_COUNT tasks and the divisor $DIVISOR, you should set the JHS task cache size (mapreduce.jobhistory.loadedtasks.cache.size) to: $TASK_CACHE_SIZE"
       
 #Sum the largest XML and JHST files 
+TASK_SIZE_KB=15
 TASK_SIZE_SUM=`echo $TASK_CACHE_SIZE*$TASK_SIZE_KB|bc`;
 
 #Multiply file size sum by 20% to compensate for unplanned large jobs
-TASK_SIZE_KB=15
 COMPENSATION_FACTOR=`echo $TASK_SIZE_SUM*$PERCENT|bc| awk '{print int($1+0.9)}'`; 
 echo "Based on the task count $TASK_COUNT * $TASK_SIZE_KB task size * $PERCENT varience, the compensation factor is: $COMPENSATION_FACTOR bytes"
             
